@@ -15,8 +15,12 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - run: chmod +x gradlew
-      - run: ./gradlew assembleDebug
+      - name: Fix line endings
+        run: Sed -i 's/\r$//' gradlew
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+      - name: Build APK
+        run: ./gradlew assembleDebug
 
       - uses: actions/upload-artifact@v4
         with:
