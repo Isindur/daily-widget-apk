@@ -1,0 +1,22 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.dailywidget">
+
+    <application
+        android:label="Daily Widget"
+        android:allowBackup="false">
+
+        <receiver
+            android:name=".DailyActionWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="TOGGLE_ACTION"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/daily_widget_info"/>
+        </receiver>
+
+    </application>
+</manifest>
