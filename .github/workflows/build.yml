@@ -16,7 +16,7 @@ jobs:
           java-version: 17
 
       - name: Fix line endings
-        run: Sed -i 's/\r$//' gradlew
+        run: sed -i 's/\r$//' gradlew
       - name: Make gradlew executable
         run: chmod +x gradlew
       - name: Build APK
