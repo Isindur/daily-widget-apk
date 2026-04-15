@@ -21,12 +21,19 @@ class DailyActionWidget : AppWidgetProvider() {
 
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
+
         if (intent.action == ACTION) {
             val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+
+            // ✅ TOGGLE: si estaba hecho, deshazlo; si no, márcalo
+            val wasDone = isDoneToday(prefs)
+            val now = System.currentTimeMillis()
+
             prefs.edit()
-                .putBoolean("done", true)
-                .putLong("date", System.currentTimeMillis())
+                .putBoolean("done", !wasDone)
+                .putLong("date", now)
                 .apply()
+
             update(context)
         }
     }
@@ -44,11 +51,17 @@ class DailyActionWidget : AppWidgetProvider() {
         val bg = if (doneToday) R.drawable.bg_checked else R.drawable.bg_unchecked
         views.setInt(R.id.btn, "setBackgroundResource", bg)
 
-        val intent = Intent(context, DailyActionWidget::class.java).apply { action = ACTION }
+        val intent = Intent(context, DailyActionWidget::class.java).apply {
+            action = ACTION
+        }
+
         val pi = PendingIntent.getBroadcast(
-            context, 0, intent,
+            context,
+            0,
+            intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
+
         views.setOnClickPendingIntent(R.id.btn, pi)
 
         AppWidgetManager.getInstance(context).updateAppWidget(
