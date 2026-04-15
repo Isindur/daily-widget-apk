@@ -1,6 +1,17 @@
-<ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/btn"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scaleType="centerCrop"
-    android:background="@drawable/bg_unchecked" />
+    android:background="@android:color/transparent"
+    android:foregroundGravity="center">
+
+    <ImageButton
+        android:id="@+id/btn"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_unchecked"
+        android:scaleType="centerCrop"
+        android:contentDescription="Daily action"
+        android:focusable="false"
+        android:clickable="true" />
+</FrameLayout>
